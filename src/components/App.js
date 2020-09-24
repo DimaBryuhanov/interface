@@ -1,3 +1,4 @@
+import { without } from 'lodash';
 import React from 'react';
 import '../css/App.css';
 import AddAppointments from './AddAppointments';
@@ -11,6 +12,15 @@ class App extends React.Component{
       appointments: [],
       apptId: 0
     }
+    this.deleteAppointment = this.deleteAppointment.bind(this);
+  }
+
+  deleteAppointment = (apt) => {
+    let tempApt = this.state.appointments;
+    tempApt = without(tempApt, apt);
+    this.setState({
+      appointments: tempApt
+    })
   }
 
   componentDidMount(){
@@ -27,8 +37,6 @@ class App extends React.Component{
       })
     });
 
-
-
   }
 
   render(){
@@ -44,6 +52,7 @@ class App extends React.Component{
                   <SearchAppointments />
                   <ListAppointments 
                     appointments={this.state.appointments}
+                    delete={this.deleteAppointment}
                   />
                 </div>
               </div>

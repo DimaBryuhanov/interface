@@ -8,7 +8,10 @@ class ListAppointments extends React.Component{
         {this.props.appointments.map(item => (
           <div className="pet-item col media py-3" key={item.id}>
             <div className="mr-3">
-              <button className="pet-delete btn btn-sm btn-danger">
+              <button 
+                className="pet-delete btn btn-sm btn-danger"
+                onClick={() => this.props.delete(item)}
+              >
                   <FaTimes />
               </button>
             </div>
