@@ -10,6 +10,7 @@ class App extends React.Component{
     super();
     this.state = {
       appointments: [],
+      formDisplay: false,
       apptId: 0
     }
     this.deleteAppointment = this.deleteAppointment.bind(this);
@@ -48,7 +49,9 @@ class App extends React.Component{
             <div className="row">
               <div className="col-md-12 bg-white">
                 <div className="container">
-                  <AddAppointments />
+                  <AddAppointments 
+                    formDisplay={this.state.formDisplay}
+                  />
                   <SearchAppointments />
                   <ListAppointments 
                     appointments={this.state.appointments}
