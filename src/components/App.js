@@ -4,6 +4,14 @@ import AddAppointments from './AddAppointments';
 import ListAppointments from './ListAppointments';
 import SearchAppointments from './SearchAppointments';
 class App extends React.Component{
+
+  constructor(){
+    super();
+    this.state = {
+      petName: 'Fluffy'
+    }
+  }
+
   render(){
     return (
       <div className="App">
@@ -15,6 +23,7 @@ class App extends React.Component{
                   <AddAppointments />
                   <SearchAppointments />
                   <ListAppointments />
+                  <div>{this.state.petName}</div>
                 </div>
               </div>
             </div>
