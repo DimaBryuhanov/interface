@@ -13,10 +13,10 @@ class AddAppointments extends React.Component{
           aptNotes: ''
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleAdd = this.handleAdd.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-      handleAdd(e) {
+      handleSubmit(e) {
         e.preventDefault();
         let tempApt = {
           petName: this.state.petName,
@@ -62,7 +62,9 @@ class AddAppointments extends React.Component{
               </div>
       
               <div className="card-body">
-                <form id="aptForm" noValidate>
+                <form id="aptForm" noValidate
+                 onSubmit={this.handleSubmit}
+                >
                   <div className="form-group form-row">
                     <label
                       className="col-md-2 col-form-label text-md-right"

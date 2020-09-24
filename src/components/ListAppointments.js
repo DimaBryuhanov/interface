@@ -18,7 +18,7 @@ class ListAppointments extends React.Component{
 
             <div className="pet-info media-body">
               <div className="pet-head d-flex">
-        <span className="pet-name">{item.id}.{item.petName}</span>
+        <span className="pet-name">{item.petName}</span>
                 <span className="apt-date ml-auto">
                     <Moment 
                         date={item.aptDate}

@@ -11,10 +11,23 @@ class App extends React.Component{
     this.state = {
       appointments: [],
       formDisplay: false,
+      lastIndex:0,
       apptId: 0
     }
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
+    this.addAppointment = this.addAppointment.bind(this);
+  }
+
+  addAppointment(aptmnt){
+    const temApts = this.state.appointments;
+    aptmnt.id = this.state.lastIndex;
+    temApts.unshift(aptmnt);
+
+    this.setState({
+      appointments: temApts,
+      lastIndex: this.state.lastIndex + 1
+    })
   }
 
   deleteAppointment = (apt) => {
@@ -59,6 +72,7 @@ class App extends React.Component{
                   <AddAppointments 
                     formDisplay={this.state.formDisplay}
                     toggleForm={this.toggleForm}
+                    addAppointment={this.addAppointment}
                   />
                   <SearchAppointments />
                   <ListAppointments 
