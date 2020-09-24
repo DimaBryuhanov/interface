@@ -29,6 +29,7 @@ class App extends React.Component{
   }
 
   render(){
+
     return (
       <div className="App">
         <main className="page bg-white" id="petratings">
@@ -38,7 +39,9 @@ class App extends React.Component{
                 <div className="container">
                   <AddAppointments />
                   <SearchAppointments />
-                  <ListAppointments />
+                  <ListAppointments 
+                    appointments={this.state.appointments}
+                  />
                 </div>
               </div>
             </div>
