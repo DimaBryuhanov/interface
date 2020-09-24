@@ -8,8 +8,24 @@ class App extends React.Component{
   constructor(){
     super();
     this.state = {
-      petName: 'Fluffy'
+      appointments: []
     }
+  }
+
+  componentDidMount(){
+    fetch('./data.json')
+    .then(res => res.json())
+    .then(res => {
+      const aptmnts = res.map(item => {
+        return item;
+      });
+      this.setState({
+        appointments:aptmnts
+      })
+    });
+
+
+
   }
 
   render(){
@@ -23,7 +39,6 @@ class App extends React.Component{
                   <AddAppointments />
                   <SearchAppointments />
                   <ListAppointments />
-                  <div>{this.state.petName}</div>
                 </div>
               </div>
             </div>
