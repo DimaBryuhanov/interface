@@ -14,6 +14,7 @@ class App extends React.Component{
       apptId: 0
     }
     this.deleteAppointment = this.deleteAppointment.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
   }
 
   deleteAppointment = (apt) => {
@@ -21,6 +22,12 @@ class App extends React.Component{
     tempApt = without(tempApt, apt);
     this.setState({
       appointments: tempApt
+    })
+  }
+
+  toggleForm = () => {
+    this.setState({
+      formDisplay: ! this.state.formDisplay
     })
   }
 
@@ -51,6 +58,7 @@ class App extends React.Component{
                 <div className="container">
                   <AddAppointments 
                     formDisplay={this.state.formDisplay}
+                    toggleForm={this.toggleForm}
                   />
                   <SearchAppointments />
                   <ListAppointments 
