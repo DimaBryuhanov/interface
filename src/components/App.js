@@ -8,7 +8,8 @@ class App extends React.Component{
   constructor(){
     super();
     this.state = {
-      appointments: []
+      appointments: [],
+      apptId: 0
     }
   }
 
@@ -17,6 +18,8 @@ class App extends React.Component{
     .then(res => res.json())
     .then(res => {
       const aptmnts = res.map(item => {
+        item.id = this.state.apptId;
+        this.setState({apptId: this.state.apptId + 1});
         return item;
       });
       this.setState({
