@@ -1,2 +1,4 @@
 npx create-react-app .
 npm i -s bootstrap react-icons lodash jquery popper.js moment react-moment
+https://react-icons.github.io/react-icons/
+https://momentjs.com
