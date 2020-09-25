@@ -4,16 +4,17 @@ import '../css/App.css';
 import AddAppointments from './AddAppointments';
 import ListAppointments from './ListAppointments';
 import SearchAppointments from './SearchAppointments';
-class App extends React.Component{
+class App extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       appointments: [],
       formDisplay: false,
       orderBy: 'petName',
       orderDir: 'desc',
-      lastIndex:0,
+      seachText: '',
+      lastIndex: 0,
       apptId: 0
     }
     this.addAppointment = this.addAppointment.bind(this);
@@ -21,9 +22,10 @@ class App extends React.Component{
     this.toggleForm = this.toggleForm.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
     this.changeDir = this.changeDir.bind(this);
+    this.searchBy = this.searchBy.bind(this);
   }
 
-  addAppointment(aptmnt){
+  addAppointment(aptmnt) {
     const temApts = this.state.appointments;
     aptmnt.id = this.state.lastIndex;
     temApts.unshift(aptmnt);
@@ -44,7 +46,7 @@ class App extends React.Component{
 
   toggleForm = () => {
     this.setState({
-      formDisplay: ! this.state.formDisplay
+      formDisplay: !this.state.formDisplay
     })
   }
 
@@ -56,27 +58,33 @@ class App extends React.Component{
 
   changeDir = (direction) => {
     this.setState({
-      orderDir:direction
+      orderDir: direction
     })
   }
 
-  componentDidMount(){
+  searchBy = (search) => {
+    this.setState({
+      seachText:search
+    })
+  }
+
+  componentDidMount() {
     fetch('./data.json')
-    .then(res => res.json())
-    .then(res => {
-      const aptmnts = res.map(item => {
-        item.id = this.state.apptId;
-        this.setState({apptId: this.state.apptId + 1});
-        return item;
+      .then(res => res.json())
+      .then(res => {
+        const aptmnts = res.map(item => {
+          item.id = this.state.apptId;
+          this.setState({ apptId: this.state.apptId + 1 });
+          return item;
+        });
+        this.setState({
+          appointments: aptmnts
+        })
       });
-      this.setState({
-        appointments:aptmnts
-      })
-    });
 
   }
 
-  render(){
+  render() {
 
     let order;
     let filteredApts = this.state.appointments;
@@ -86,7 +94,7 @@ class App extends React.Component{
       order = -1;
     }
 
-    filteredApts.sort((a, b) => {
+    filteredApts = filteredApts.sort((a, b) => {
       if (
         a[this.state.orderBy].toLowerCase() <
         b[this.state.orderBy].toLowerCase()
@@ -95,6 +103,18 @@ class App extends React.Component{
       } else {
         return 1 * order;
       }
+    }).filter(item => {
+      return (
+        item['petName']
+          .toLowerCase()
+          .includes(this.state.seachText.toLowerCase()) ||
+        item['aptNotes']
+          .toLowerCase()
+          .includes(this.state.seachText.toLowerCase()) ||
+        item['ownerName']
+          .toLowerCase()
+          .includes(this.state.seachText.toLowerCase())
+      )
     });
 
     return (
@@ -104,18 +124,19 @@ class App extends React.Component{
             <div className="row">
               <div className="col-md-12 bg-white">
                 <div className="container">
-                  <AddAppointments 
+                  <AddAppointments
                     formDisplay={this.state.formDisplay}
                     toggleForm={this.toggleForm}
                     addAppointment={this.addAppointment}
                   />
-                  <SearchAppointments 
+                  <SearchAppointments
                     orderBy={this.state.orderBy}
                     orderDir={this.state.orderDir}
                     changeOrder={this.changeOrder}
                     changeDir={this.changeDir}
+                    searchAppointments={this.searchBy}
                   />
-                  <ListAppointments 
+                  <ListAppointments
                     appointments={filteredApts}
                     delete={this.deleteAppointment}
                   />
