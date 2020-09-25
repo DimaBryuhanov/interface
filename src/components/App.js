@@ -16,9 +16,11 @@ class App extends React.Component{
       lastIndex:0,
       apptId: 0
     }
+    this.addAppointment = this.addAppointment.bind(this);
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
-    this.addAppointment = this.addAppointment.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
+    this.changeDir = this.changeDir.bind(this);
   }
 
   addAppointment(aptmnt){
@@ -43,6 +45,18 @@ class App extends React.Component{
   toggleForm = () => {
     this.setState({
       formDisplay: ! this.state.formDisplay
+    })
+  }
+
+  changeOrder = (order) => {
+    this.setState({
+      orderBy: order
+    })
+  }
+
+  changeDir = (direction) => {
+    this.setState({
+      orderDir:direction
     })
   }
 
@@ -98,6 +112,8 @@ class App extends React.Component{
                   <SearchAppointments 
                     orderBy={this.state.orderBy}
                     orderDir={this.state.orderDir}
+                    changeOrder={this.changeOrder}
+                    changeDir={this.changeDir}
                   />
                   <ListAppointments 
                     appointments={filteredApts}
