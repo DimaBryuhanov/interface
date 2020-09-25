@@ -11,7 +11,7 @@ class App extends React.Component{
     this.state = {
       appointments: [],
       formDisplay: false,
-      orderBy: 'ownerName',
+      orderBy: 'petName',
       orderDir: 'desc',
       lastIndex:0,
       apptId: 0
@@ -95,7 +95,10 @@ class App extends React.Component{
                     toggleForm={this.toggleForm}
                     addAppointment={this.addAppointment}
                   />
-                  <SearchAppointments />
+                  <SearchAppointments 
+                    orderBy={this.state.orderBy}
+                    orderDir={this.state.orderDir}
+                  />
                   <ListAppointments 
                     appointments={filteredApts}
                     delete={this.deleteAppointment}
